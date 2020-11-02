@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'CHP.wsgi.application'
 # }
 
 DATABASES = {
-'default': env.dj_db_url('DATABASE_URL')
+    'default': env.dj_db_url('DATABASE_URL')
 }
 
 
