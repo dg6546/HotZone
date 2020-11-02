@@ -25,7 +25,7 @@ SECRET_KEY = 'gljz!ijg2at)*u2c2q(45v!27a^jrcdfm&5mb(i-4dpah+%639'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://afternoon-dawn-73910.herokuapp.com/', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['afternoon-dawn-73910.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
