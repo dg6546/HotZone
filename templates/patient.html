@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title%}
+<h1>Patient details</h1>
+{% endblock %}
+
+{% block content %}
+
+<table>
+    <tr>
+        <th>Patient name</th>
+        <th>HKID</th>
+        <th>Date of birth</th>
+    </tr>    
+    <tr>
+        <td>{{patient.name}}</td>
+        <td>{{patient.id_num}}</td>
+        <td>{{patient.dob}}</td>
+    </tr>
+</table>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title%}
+<h1>Case details</h1>
+{% endblock %}
+
+{% block content %}
+
+    {% if case %}
+        <h2>Case information</h2>
+        <table>
+        <tr>
+            <th>Case ID</th>
+            <th>Date Confirmed</th>
+            <th>Local or Imported</th>
+        </tr>
+        <tr>
+            <td>{{ case.id }}</td>
+            <td>{{ case.date_confirmed }}</td>
+            <td>{{ case.category }}</td>
+        </tr>
+        </table>
+        <h2>Patient details</h2>
+        <table>
+            <tr>
+                <th><b>Patient name</b></th>
+                <th><b>HKID</b></th>
+                <th><b>Date of birth</b></th>
+            </tr>    
+            <tr>
+                <td>{{patient.name}}</td>
+                <td>{{patient.id_num}}</td>
+                <td>{{patient.dob}}</td>
+            </tr>
+        </table>
+        <h2>Virus details</h2>
+        <table>
+            <tr>
+                <th><b>Virus name</b></th>
+                <th><b>Common name</b></th>
+                <th><b>Max infectious day</b></th>
+            </tr>
+            <tr>
+                <td>{{virus.name}}</td>
+                <td>{{virus.disease}}</td>
+                <td>{{virus.infectious_days}}</td>
+            </tr>
+        </table>
+        {% if visit_record %}
+            <table style="padding-bottom: 25px">
+                <h2>Visit Record</h2>
+                <tr>
+                    <th>Location</th>
+                    <th>Address</th>
+                    <th>Date from</th>
+                    <th>Date to</th>
+                    <th>Category</th>
+                </tr>
+                    {% for record in visit_record %}
+                        <tr>
+                            <td>{{record.location.name}}</td>
+                            <td>{{record.location.address}}</td>
+                            <td>{{record.date_from}}</td>
+                            <td>{{record.date_to}}</td>
+                            <td>{{record.category}}</td>
+                        </tr>
+                    {% endfor %}
+            <table>
+        {% else %}
+        <h1>No visit record</h1>
+        {% endif %}
+    {% else %}
+        <h1>Error, no such case</h1>
+    {% endif %}
+{% endblock content %}

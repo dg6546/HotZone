@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    <h1>Virus details</h1>
+{% endblock %}
+
+{% block content %}
+
+    <table>
+        <tr>
+            <th><b>Virus name</b></th>
+            <th><b>Common name</b></th>
+            <th><b>Max infectious day</b></th>
+        </tr>
+        <tr>
+            <td>{{virus.name}}</td>
+            <td>{{virus.disease}}</td>
+            <td>{{virus.infectious_days}}</td>
+        </tr>
+    </table>
+{% endblock content %}
