@@ -3,18 +3,21 @@ import urllib.request, json
 from .forms import *
 from .json_request import *
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='login_page')
 def index_view(request):
     case_list = Case.objects.order_by('date_confirmed')
     
     return render(request, "case.html", {"case_list": case_list})
 
-
+@login_required(login_url='login_page')
 def patient_view(request, patient_id):
     patient = get_object_or_404(Patient, pk=patient_id)
     return render(request, "patient.html", {"patient": patient})
 
+@login_required(login_url='login_page')
 def case_detail_view(request, case_id):
     case = get_object_or_404(Case, pk=case_id)
     virus = case.virus
@@ -24,10 +27,12 @@ def case_detail_view(request, case_id):
 
     return render(request, "case_detail.html", {"case":case, "virus": virus, "patient": patient, "visit_record": visit_record, "location_list": location_list})
 
+@login_required(login_url='login_page')
 def virus_detail_view(request, virus_id):
     virus = get_object_or_404(Virus, pk=virus_id)
     return render(request, "virus_detail.html", {"virus": virus})
 
+@login_required(login_url='login_page')
 def search_location_form_view(request):
     if request.method == 'POST':
         form = Location_search_Form(request.POST)
@@ -60,7 +65,7 @@ def search_location_form_view(request):
 
 
 
-
+@login_required(login_url='login_page')
 def New_location_form_view(request):
     if request.method == 'POST':
         form = New_location_form(request.POST)
