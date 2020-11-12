@@ -29,7 +29,12 @@
         border-right: 1px black;
     }
 </style>
-
+<li><h4 style="text-align: left;"> 
+    Hello, {{request.user}}
+    <span style="margin-left: 1650px;"></span>
+    <a  class="hello-msg" href="{% url 'logout' %}">Logout </a>
+    </h4>
+</li>
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
@@ -44,6 +49,8 @@
       </ul>
     </div>
   </div>
+
+
 </nav>
 
 </head>
