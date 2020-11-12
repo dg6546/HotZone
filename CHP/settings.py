@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['afternoon-dawn-73910.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -88,6 +88,8 @@ WSGI_APPLICATION = 'CHP.wsgi.application'
 #     }
 # }
 
+#for local host
+#change the data according to your own machine
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -97,11 +99,12 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '',
     }
- }
+}
 
-# DATABASES = {
-#     'default': env.dj_db_url('DATABASE_URL')
-# }
+#for global link
+#DATABASES = {
+#    'default': env.dj_db_url('DATABASE_URL')
+#}
 
 
 # Password validation
@@ -144,5 +147,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
+#for global link
 #SECRET_KEY = env('HOTZONE_SECRET_KEY') 
+
+#for localhost
 SECRET_KEY = 'n)=jbb@c0o83q0dsvt1qg2@cxwc*7$3@hz$_7%+7&=$sv)@aw_'
