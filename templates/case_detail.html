@@ -17,7 +17,7 @@
         <tr>
             <td>{{ case.id }}</td>
             <td>{{ case.date_confirmed }}</td>
-            <td>{{ case.category }}</td>
+            <td>{{ case.case_category }}</td>
         </tr>
         </table>
         <h2>Patient details</h2>
@@ -28,7 +28,7 @@
                 <th><b>Date of birth</b></th>
             </tr>    
             <tr>
-                <td>{{patient.name}}</td>
+                <td>{{patient.patient_name}}</td>
                 <td>{{patient.id_num}}</td>
                 <td>{{patient.dob}}</td>
             </tr>
@@ -41,7 +41,7 @@
                 <th><b>Max infectious day</b></th>
             </tr>
             <tr>
-                <td>{{virus.name}}</td>
+                <td>{{virus.virus_name}}</td>
                 <td>{{virus.disease}}</td>
                 <td>{{virus.infectious_days}}</td>
             </tr>
@@ -58,11 +58,11 @@
                 </tr>
                     {% for record in visit_record %}
                         <tr>
-                            <td>{{record.location.name}}</td>
+                            <td>{{record.location.location_name}}</td>
                             <td>{{record.location.address}}</td>
                             <td>{{record.date_from}}</td>
                             <td>{{record.date_to}}</td>
-                            <td>{{record.category}}</td>
+                            <td>{{record.visit_category}}</td>
                         </tr>
                     {% endfor %}
             <table>

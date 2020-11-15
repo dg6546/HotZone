@@ -3,16 +3,16 @@ from django.db import models
 # Create your models here.
 
 class Location(models.Model):
-    name = models.CharField(max_length=100)
+    location_name = models.CharField(max_length=100)
     address = models.CharField(max_length=100, null=True, blank=True)
     x_coord = models.IntegerField()
     y_coord = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.location_name
 
 class Virus(models.Model):
-    name = models.CharField(max_length=30)
+    virus_name = models.CharField(max_length=30)
     disease = models.CharField(max_length=30)
     infectious_days = models.IntegerField()
 
@@ -22,23 +22,23 @@ class Virus(models.Model):
 
 class Patient(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(max_length=50)
+    patient_name = models.CharField(max_length=50)
     id_num = models.CharField(max_length=15, unique=True)
     dob = models.DateField()
 
     def __str__(self):
-        return self.name
+        return self.patient_name
 
 
 class Case(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
     date_confirmed = models.DateField()
-    virus = models.ForeignKey(Virus, on_delete=models.CASCADE)
+    virus = models.ForeignKey(Virus, on_delete=models.CASCADE, null=True, blank=True)
     CAT_CHOICE = [
         ('Local', 'Local'),
         ('Import', 'Import'),
     ]
-    category = models.CharField(max_length=30, choices=CAT_CHOICE, default=CAT_CHOICE[0])  
+    case_category = models.CharField(max_length=30, choices=CAT_CHOICE, default=CAT_CHOICE[0])  
 
     def __str__(self):
         return str(self.id)
@@ -53,7 +53,7 @@ class Visit_record(models.Model):
         ('Workplace', 'Workplace'),
         ('visit', 'visit'),
     ]
-    category = models.CharField(max_length=30, choices=CAT_CHOICE, default=CAT_CHOICE[0])
+    visit_category = models.CharField(max_length=30, choices=CAT_CHOICE, default=CAT_CHOICE[0])
 
     def __str__(self):
         return str(self.id)

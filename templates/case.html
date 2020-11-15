@@ -18,10 +18,10 @@
             <tr>
                 <td><a href="case_detail/{{ case.id }}/">{{ case.id }}</a></td>
 
-                <td><a href="patient/{{ case.patient_id }}/">{{ case.patient.name }}</a></td>
+                <td><a href="patient/{{ case.patient_id }}/">{{ case.patient.patient_name }}</a></td>
                 <td>{{ case.date_confirmed }}</td>
                 <td><a href="virus_detail/{{ case.virus.id }}">{{ case.virus.disease }}</a></td>
-                <td>{{ case.category }}</td>
+                <td>{{ case.case_category }}</td>
             </tr>
         {% endfor %}
         </table>

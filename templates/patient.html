@@ -13,9 +13,27 @@
         <th>Date of birth</th>
     </tr>    
     <tr>
-        <td>{{patient.name}}</td>
+        <td>{{patient.patient_name}}</td>
         <td>{{patient.id_num}}</td>
         <td>{{patient.dob}}</td>
     </tr>
+</table>
+
+<h2> related cases </h2>
+<table style="width:100%; text-align:center">
+    <tr>
+        <th>Case ID</th>
+        <th>Date Confirmed</th>
+        <th>Virus</th>
+        <th>Local or Imported</th>
+    </tr>
+    {% for case in case_list %}
+        <tr>
+                <td><a href="/case_detail/{{ case.id }}/">{{ case.id }}</a></td>
+                <td>{{ case.date_confirmed }}</td>
+                <td><a href="/virus_detail/{{ case.virus.id }}">{{ case.virus.disease }}</a></td>
+                <td>{{ case.category }}</td>
+            </tr>
+    {% endfor %}
 </table>
 {% endblock content %}
