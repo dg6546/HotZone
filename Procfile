@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT CHP.wsgi:application
+web: waitress-serve --port=8000 CHP.wsgi:application

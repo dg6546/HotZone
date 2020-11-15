@@ -25,10 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-
+# SECURITY WARNING: keep the secret key used in production secret!
+#SECRET_KEY = env('HOTZONE_SECRET_KEY') 
+SECRET_KEY = 'gljz!ijg2at)*u2c2q(45v!27a^jrcdfm&5mb(i-4dpah+%639'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['afternoon-dawn-73910.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'VirusApp',
+    'formtools',
 ]
 
 MIDDLEWARE = [
@@ -87,20 +90,20 @@ WSGI_APPLICATION = 'CHP.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'deploydemo',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
 DATABASES = {
-    'default': env.dj_db_url('DATABASE_URL')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'deploydemo',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 }
+
+# DATABASES = {
+#     'default': env.dj_db_url('DATABASE_URL')
+# }
 
 
 # Password validation
@@ -142,5 +145,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('HOTZONE_SECRET_KEY') 

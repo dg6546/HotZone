@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
 
-class VirusappConfig(AppConfig):
-    name = 'VirusApp'
+class LoginConfig(AppConfig):
     name = 'Login'
