@@ -4,7 +4,10 @@ from .forms import *
 from .json_request import *
 from .models import *
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 #from formtools.wizard.views import WizardView
+=======
+>>>>>>> 1824751f2538cd24c9d48b70efab198a032f6f98
 
 # Create your views here.
 @login_required(login_url='login_page')
