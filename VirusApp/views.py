@@ -4,6 +4,7 @@ from .forms import *
 from .json_request import *
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 <<<<<<< HEAD
 #from formtools.wizard.views import WizardView
 =======
@@ -65,8 +66,36 @@ def search_location_form_view(request):
     form = Location_search_Form()
     return render(request, 'location.html', {'form': form})
 
+@login_required(login_url='login_page')
+def search_case_form_view(request):
+    if request.method == 'POST':
+        form = Case_search_form(request.POST)
+        if form.is_valid():
+            case_id = form.cleaned_data.get('number')
+            try:
+                case_list = Case.objects.filter(case_id=case_id)
+                return render(request, "case.html", {"case_list": case_list})
+            except(urllib.error.HTTPError):
+                return render(request, 'case.html', {'case_list': None})
 
+    case_no = Case_search_form()
+    return case_detail_view(request, case_no)
 
+@login_required(login_url='login_page')
+def search_patient_form_view(request):
+    if request.method == 'POST':
+        form = Patient_search_form(request.POST)
+        if form.is_valid():
+            id = form.cleaned_data.get('number')
+            name = form.cleaned_data.get('name')
+            HKID = form.cleaned_data.get('HKID')
+            try:
+                patient_list = Patient.objects.filter((Q(patient_id=None) |Q(patient_id=id)) and (Q(patient_name=None)|Q(patient_name=name)) and (Q(id_num=None)|Q(id_num=HKID))
+                return render(request, "patient_list.html", {"patient_list": patient_list})
+            except(urllib.error.HTTPError):
+                return render(request, "patient_list.html", {"patient_list": None})
+
+    return render(request, "patient_list.html", {"patient_list": None})
 
 
 
@@ -134,3 +163,5 @@ def New_patient_form_view(request):
     else:
         patient_form = New_patient_form()
         return render(request, 'new_patient.html', {'patient_form': patient_form})
+
+

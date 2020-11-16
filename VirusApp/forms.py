@@ -5,7 +5,13 @@ from .models import *
 class Location_search_Form(forms.Form):
     location_name = forms.CharField(label='location', max_length=100)
 
+class Case_search_form(forms.Form):
+    case_no = forms.IntegerField(label='number')
 
+class Patient_search_form(forms.Form):
+    patient_no = forms.IntegerField(label='number',null=True)
+    patient_name = forms.CharField(label='name', max_length=50,null=True)
+    patient_id_num = forms.CharField(label='HKID', max_length=15,null=True)
 
 class New_location_form(ModelForm):
     class Meta:

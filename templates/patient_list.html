@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title%}
+<h1>Patient Search</h1>
+{% endblock %}
+
+{% block content %}
+    {% if patient_list %}
+    <table style="width:100%; text-align:center">
+        <tr>
+            <th>Patient ID</th>
+            <th>Patient</th>
+            <th>HKID</th>
+            <th>Date Of Birth</th>
+        </tr>
+        {% for patient in patient_list %}
+            <tr>
+                <td><a href="patient/{{ patient.id }}/">{{ case.id }}</a></td>
+                <td>{{ patient.patient_name }}</td>
+                <td>{{ patient.id_num }}</td>
+                <td>{{ patient.dob }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No patient is available.</p>
+    {% endif %}
+{% endblock content %}
