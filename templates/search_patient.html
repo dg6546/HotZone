@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title%}
+<h1>Patient Search</h1>
+{% endblock %}
+
+{% block content %}
+    <h3>Input Patient Details</h3>
+    <form action="/search/patient"
+      method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="button" type="submit">Search</button>
+    
+    </form>
+
+{{status}}
+{% endblock content %}

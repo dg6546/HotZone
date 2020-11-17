@@ -5,10 +5,9 @@ from .json_request import *
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-<<<<<<< HEAD
+
 #from formtools.wizard.views import WizardView
-=======
->>>>>>> 1824751f2538cd24c9d48b70efab198a032f6f98
+
 
 # Create your views here.
 @login_required(login_url='login_page')
@@ -71,31 +70,31 @@ def search_case_form_view(request):
     if request.method == 'POST':
         form = Case_search_form(request.POST)
         if form.is_valid():
-            case_id = form.cleaned_data.get('number')
+            case_id = form.cleaned_data.get('case_no')
             try:
-                case_list = Case.objects.filter(case_id=case_id)
-                return render(request, "case.html", {"case_list": case_list})
+                case_list = Case.objects.filter(id=case_id)
+                return render(request, "case_search_result.html", {"case_list": case_list})
             except(urllib.error.HTTPError):
-                return render(request, 'case.html', {'case_list': None})
+                return render(request, 'case_search_result.html', {'case_list': None})
 
-    case_no = Case_search_form()
-    return case_detail_view(request, case_no)
+    form = Case_search_form()
+    return render(request, 'search_case.html', {'form': form})
 
 @login_required(login_url='login_page')
 def search_patient_form_view(request):
     if request.method == 'POST':
         form = Patient_search_form(request.POST)
         if form.is_valid():
-            id = form.cleaned_data.get('number')
-            name = form.cleaned_data.get('name')
-            HKID = form.cleaned_data.get('HKID')
+            id = form.cleaned_data.get('patient_no')
+            name = form.cleaned_data.get('patient_name')
+            HKID = form.cleaned_data.get('patient_id_num')
             try:
-                patient_list = Patient.objects.filter((Q(patient_id=None) |Q(patient_id=id)) and (Q(patient_name=None)|Q(patient_name=name)) and (Q(id_num=None)|Q(id_num=HKID))
+                patient_list = Patient.objects.filter(Q(id=None) |Q(id=id) | Q(patient_name=None)|Q(patient_name=name) | Q(id_num=None)|Q(id_num=HKID))
                 return render(request, "patient_list.html", {"patient_list": patient_list})
             except(urllib.error.HTTPError):
                 return render(request, "patient_list.html", {"patient_list": None})
-
-    return render(request, "patient_list.html", {"patient_list": None})
+    form = Patient_search_form()
+    return render(request, 'search_patient.html', {'form': form})
 
 
 
