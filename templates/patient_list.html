@@ -15,7 +15,7 @@
         </tr>
         {% for patient in patient_list %}
             <tr>
-                <td><a href="patient/{{ patient.id }}/">{{ case.id }}</a></td>
+                <td><a href="/patient/{{ patient.id }}/">{{ patient.id }}</a></td>
                 <td>{{ patient.patient_name }}</td>
                 <td>{{ patient.id_num }}</td>
                 <td>{{ patient.dob }}</td>

@@ -42,11 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'VirusApp',
-<<<<<<< HEAD
-    'formtools',
-=======
     'Login',
->>>>>>> 1824751f2538cd24c9d48b70efab198a032f6f98
 ]
 
 MIDDLEWARE = [
@@ -91,38 +87,15 @@ WSGI_APPLICATION = 'CHP.wsgi.application'
 #     }
 # }
 
-<<<<<<< HEAD
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'deploydemo',
+        'NAME': 'hotzone',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-=======
-#for local host
-#maybe need to change some changes
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_1',
-        'USER': 'cheung',
-        'PASSWORD': '0000',
->>>>>>> 1824751f2538cd24c9d48b70efab198a032f6f98
-        'HOST': 'localhost',
-        'PORT': '',
     }
 }
-
-<<<<<<< HEAD
-# DATABASES = {
-#     'default': env.dj_db_url('DATABASE_URL')
-# }
-=======
-#for global link
-#DATABASES = {
-#    'default': env.dj_db_url('DATABASE_URL')
-#}
->>>>>>> 1824751f2538cd24c9d48b70efab198a032f6f98
 
 
 # Password validation
@@ -164,12 +137,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 
-<<<<<<< HEAD
-=======
 # SECURITY WARNING: keep the secret key used in production secret!
 #for global link
 #SECRET_KEY = env('HOTZONE_SECRET_KEY') 
 
 #for localhost
 SECRET_KEY = 'n)=jbb@c0o83q0dsvt1qg2@cxwc*7$3@hz$_7%+7&=$sv)@aw_'
->>>>>>> 1824751f2538cd24c9d48b70efab198a032f6f98
+
