@@ -57,3 +57,4 @@ class Visit_record(models.Model):
 
     def __str__(self):
         return str(self.id)
+

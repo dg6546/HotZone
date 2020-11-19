@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title%}
+<h1>Add new location</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post" action="add_visit">
+    {% csrf_token %}
+    <table style="width:100%; text-align:center">
+    <tr>
+        <th> </th>
+        <th>Location name</th>
+        <th>Address</th>
+        <th>x coordinate</th>
+        <th>y coordinate</th>
+    </tr>
+    {% for result in json_result %}
+        <tr>
+            <td><input type="radio"  name="idx" value="{{ forloop.counter0 }}" ></td>
+            <td>{{ result.location_name}}</td>
+            <td>{{ result.address }}</td>
+            <td>{{ result.x_coord }}</td>
+            <td>{{ result.y_coord }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    <input type="submit" value="create">
+    </form>
+{{status}}
+{% endblock content %}

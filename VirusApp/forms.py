@@ -21,7 +21,7 @@ class New_location_form(ModelForm):
 class New_case_form(ModelForm):
     class Meta:
         model = Case
-        exclude = ('patient', 'virus')
+        exclude = ('patient',)
 
 class New_patient_form(ModelForm):
     class Meta:
@@ -36,5 +36,8 @@ class New_virus_form(ModelForm):
 class New_visit_record_form(ModelForm):
     class Meta:
         model = Visit_record
-        exclude = ('case', 'location')
+        exclude = ('case',)
+
+
+
 

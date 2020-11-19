@@ -9,14 +9,6 @@
     {% csrf_token %}
     <h3 id="form-title">Case</h3>
     {{case_form.as_p}}
-    <h3 id="form-title">patient</h3>
-    {{patient_form.as_p}}
-    <h3 id="form-title">Virus</h3>
-    {{virus_form.as_p}}
-    <h3 id="form-title">Visit_record</h3>
-    {{visit_form.as_p}} 
-    <h3 id="form-title">Location</h3>
-    {{location_form.as_p}}
     <button class="button" type="submit">Create</button>
 </form>
 {{status}}
