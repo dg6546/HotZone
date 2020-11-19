@@ -91,12 +91,13 @@ WSGI_APPLICATION = 'CHP.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hotzone',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'db_1',
+       'USER': 'cheung',
+        'PASSWORD': '0000',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -144,3 +145,9 @@ STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 #for localhost
 SECRET_KEY = 'n)=jbb@c0o83q0dsvt1qg2@cxwc*7$3@hz$_7%+7&=$sv)@aw_'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'cheungkayuk123@gmail.com'
+EMAIL_HOST_PASSWORD = 'comp3297'
