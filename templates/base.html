@@ -31,7 +31,9 @@
 </style>
 <li><h4 style="text-align: left;"> 
     Hello, {{request.user}}
-    <span style="margin-left: 1650px;"></span>
+    <span style="margin-left: 1450px;"></span>
+    <a  class="hello-msg" href="/login/change_password/"> Change password </a>
+    <span style="margin-left: 50px;"></span>
     <a  class="hello-msg" href="{% url 'logout' %}">Logout </a>
     </h4>
 </li>

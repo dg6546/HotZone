@@ -28,3 +28,7 @@ def loginPage(request):
 
         context = {}
         return render(request, 'loginpage.html', context)
+
+@login_required(login_url='login_page')
+def change_password(request):
+    return render(request, "change_password.html", {})
