@@ -2,8 +2,10 @@
 from django.shortcuts import render, redirect 
 from django.http import HttpResponse
 from django.forms import inlineformset_factory
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 
+from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib import messages
@@ -29,6 +31,6 @@ def loginPage(request):
         context = {}
         return render(request, 'loginpage.html', context)
 
-@login_required(login_url='login_page')
-def change_password(request):
-    return render(request, "change_password.html", {})
+class PWC(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy("password_reset_complete")

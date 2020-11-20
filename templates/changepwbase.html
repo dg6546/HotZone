@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<title>CHP virus systen</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    table, th, td {
+    border: 1px solid black;
+    text-align: center;
+    }
+
+    th, td {
+    padding: 10px;
+    }
+    
+    hr.title{
+        border-top: 1px solid black;
+    }
+
+    hr.sep{
+        border-top: 1px dotted black;
+    }
+
+    li {
+        border-right: 1px black;
+    }
+</style>
+<li><h4 style="text-align: left;"> 
+    Hello, {{request.user}}
+    <span style="margin-left: 1450px;"></span>
+    <a  class="hello-msg" href="/login/change_password/"> Change password </a>
+    <span style="margin-left: 50px;"></span>
+    <a  class="hello-msg" href="{% url 'logout' %}">Logout </a>
+    </h4>
+</li>
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="/">Case Overview</a></li>
+{#        <li><a href="/patient/new">New Patient</a></li>#}
+        <li><a href="/search/case">Search Case</a></li>
+        <li><a href="/search/patient">Search Patient</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/admin" add target="_blank">admin panel</a></li>
+      </ul>
+    </div>
+    
+  </div>
+
+
+</nav>
+
+</head>
+<body>
+    <center>{% block title %}{% endblock title %}</center>
+    <div class='container'>
+        {% block content %}{% endblock content %}
+    </div>
+    <div class='container'>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

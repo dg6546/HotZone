@@ -5,7 +5,9 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("", loginPage, name="login_page"),
 
-    path("change_password/", change_password, name="change_password"),
+    path("change_password/", 
+     PWC.as_view(template_name="change_password.html"), 
+     name="change_password"),
 
     path("reset_password/",
      auth_views.PasswordResetView.as_view(),
