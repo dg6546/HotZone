@@ -86,14 +86,7 @@ WSGI_APPLICATION = 'CHP.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hotzone',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-    }
-}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -134,13 +127,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-#for global link
-#SECRET_KEY = env('HOTZONE_SECRET_KEY') 
-
-#for localhost
-SECRET_KEY = 'n)=jbb@c0o83q0dsvt1qg2@cxwc*7$3@hz$_7%+7&=$sv)@aw_'
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -148,10 +134,26 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'cheungkayuk123@gmail.com'
 EMAIL_HOST_PASSWORD = 'comp3297'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
+# #for localhost
+# SECRET_KEY = 'n)=jbb@c0o83q0dsvt1qg2@cxwc*7$3@hz$_7%+7&=$sv)@aw_'
+#
+
+#
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'hotzone',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#     }
+# }
 
 #for deployment
-#SECRET_KEY = env('HOTZONE_SECRET_KEY')
-#DEBUG = False
+SECRET_KEY = env('HOTZONE_SECRET_KEY')
+DEBUG = False
+DATABASES = {
+    'default': env.dj_db_url('DATABASE_URL')
+}
