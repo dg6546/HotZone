@@ -23,11 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = env('HOTZONE_SECRET_KEY') 
 SECRET_KEY = 'gljz!ijg2at)*u2c2q(45v!27a^jrcdfm&5mb(i-4dpah+%639'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = ['afternoon-dawn-73910.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -149,3 +147,11 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'cheungkayuk123@gmail.com'
 EMAIL_HOST_PASSWORD = 'comp3297'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+
+#for deployment
+#SECRET_KEY = env('HOTZONE_SECRET_KEY')
+#DEBUG = False
