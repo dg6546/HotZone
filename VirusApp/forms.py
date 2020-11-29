@@ -39,7 +39,7 @@ class New_visit_record_form(ModelForm):
         exclude = ('case',)
 
 class Make_cluster(forms.Form):
-    D = forms.IntegerField(label='Location distance (in m)',required=True)
-    T = forms.IntegerField(label='Time threshold (in days)',required=True)
-    C = forms.IntegerField(label='Minimum cluster size',required=True)
+    D = forms.IntegerField(label='Location distance (in m)',required=True,initial=200)
+    T = forms.IntegerField(label='Time threshold (in days)',required=True,initial=3)
+    C = forms.IntegerField(label='Minimum cluster size',required=True,initial=2)
 
