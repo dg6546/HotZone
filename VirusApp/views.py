@@ -136,8 +136,8 @@ def new_visit_form_view(request, case_id):
             visit_form = New_visit_record_form(visit_data)
 
             if location_form.is_valid() and visit_form.is_valid():
-                existing_location = Location.objects.filter(location_name=location_data['location_name'],
-                                                            address=location_data['address'],
+                existing_location = Location.objects.filter(location_name=location_data['location_name'].rstrip(),
+                                                            address=location_data['address'].rstrip(),
                                                             x_coord=location_data['x_coord'],
                                                             y_coord=location_data['y_coord'])
                 if existing_location:
@@ -163,35 +163,6 @@ def new_visit_form_view(request, case_id):
         visit_form = New_visit_record_form()
         return render(request, 'new_visit.html', {'visit_form': visit_form, 'record_list': record_list})
 
-
-# @login_required(login_url='login_page')
-# def New_location_form_view(request, case_id):
-#
-#     if request.method == 'POST':
-#         idx = request.POST.get("idx", "")
-#         logger.error(idx)
-#         if idx is not '':
-#             index = int(idx)
-#             location_dict = request.session['location_dict'][index]
-#             input_location_name = location_dict['location_name']
-#             input_address = location_dict['address']
-#             input_x_coord = location_dict['x_coord']
-#             input_y_coord = location_dict['y_coord']
-#             existing_record = Location.objects.filter(location_name=input_location_name, address=input_address)
-#             if not existing_record:
-#                 Location.objects.create(location_name=input_location_name, address=input_address,
-#                                         x_coord=input_x_coord, y_coord=input_y_coord)
-#                 messages.info(request, 'Success! Location has been created!')
-#                 return redirect('/case_detail/'+str(case_id)+'/new_visit')
-#             else:
-#                 messages.info(request, 'Error! Location already existed!')
-#                 return redirect('/case_detail/'+str(case_id)+'/new_visit')
-#         else:
-#             messages.info(request, 'Error! Please select at least one location!')
-#             return redirect('/case_detail/' + str(case_id) + '/new_visit')
-#     else:
-#         messages.info(request, 'Error! Please do not access this page manually!')
-#         return redirect('/')
 
 @login_required(login_url='login_page')
 def search_location_form_view(request, case_id):
