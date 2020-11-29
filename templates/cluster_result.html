@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title%}
+<h1>Cluster Result</h1>
+{% endblock %}
+
+{% block content %}
+    {% if results %}
+    <table style="width:100%; text-align:center">
+        <tr>
+            <th>Cluster Number</th>
+            <th>Cluster Size</th>
+            <th>Cases</th>
+        </tr>
+        {% for result in results %}
+            <tr>
+                <td> {{ result.0 }} </td>
+                <td> {{ result.1 }} </td>
+                <td> 
+                    {% for case in result.2 %}
+                        Location : {{ case.4 }} | X : {{ case.0 }} | Y : {{ case.1}} | Date of Visit : {{ case.2 }} | 
+                        <a href="/case_detail/{{ case.3 }}/"> Case Number : {{ case.3}} </a><br>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No such Cluster.</p>
+    {% endif %}
+{% endblock content %}

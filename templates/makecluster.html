@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title%}
+<h1>Cluster Generation</h1>
+{% endblock %}
+
+{% block content %}
+    <h3>Clustering Criteria</h3>
+    <form action="/cluster/perform"
+      method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="button" type="submit">Perform</button>
+    
+    </form>
+
+{{status}}
+{% endblock content %}

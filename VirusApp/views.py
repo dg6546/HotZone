@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib import messages
 import logging
+#clustering
+from .cluster import *
+import datetime
+from datetime import timedelta  
+
 
 logger = logging.getLogger(__name__)
 
@@ -129,7 +134,7 @@ def New_location_form_view(request, case_id):
     if request.method == 'POST':
         idx = request.POST.get("idx", "")
         logger.error(idx)
-        if idx is not '':
+        if idx != '':
             index = int(idx)
             location_dict = request.session['location_dict'][index]
             input_location_name = location_dict['location_name']
@@ -179,3 +184,42 @@ def search_location_form_view(request, case_id):
                 return render(request, 'location.html', {'form': form})
     form = Location_search_Form()
     return render(request, 'location.html', {'form': form})
+
+@login_required(login_url='login_page')
+def make_cluster(request):
+    if request.method == 'POST':
+        form = Make_cluster(request.POST)
+        if form.is_valid():
+            D = form.cleaned_data.get('D')
+            T = form.cleaned_data.get('T')
+            C = form.cleaned_data.get('C')
+            try:
+                patient_list = Patient.objects.all()
+                visit_record_list = Visit_record.objects.all()
+                location_list = Location.objects.all()
+                v4 = []
+                for record in visit_record_list:
+                    for location in location_list:
+                        if (location == record.location):
+                            v3=[location.x_coord,location.y_coord,(record.date_from-datetime.date(year=2020, month=1, day=1)).days,record.case_id]
+                            v4.append(v3)
+                            break
+
+                results=cluster(v4,D,T,C)
+                for result in results:
+                    result[0]+=1
+                    for case in result[2]:
+                        case[2]=datetime.date(year=2020, month=1, day=1)+ timedelta(days=case[2])  
+                        case[2]=case[2].strftime('%m/%d/%Y')
+                
+                        for location in location_list:
+                            if (location.x_coord == case[0]) and (location.y_coord == case[1]):
+                                case.append(location.location_name)
+                                break
+                #print(results)
+                return render(request, "cluster_result.html", {"results": results})
+            except:
+                messages.info(request, 'Criteria is not correct!')
+
+    form = Make_cluster()
+    return render(request, 'makecluster.html', {'form': form})

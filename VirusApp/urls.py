@@ -17,4 +17,6 @@ urlpatterns = [
     path('case_detail/<int:case_id>/new_location', search_location_form_view, name='new_location'),
     path('case_detail/<int:case_id>/result', search_location_form_view, name='search_location_result'),
     path('case_detail/<int:case_id>/add_visit', New_location_form_view, name='add_location'),
+    path('cluster/perform',make_cluster,name="cluster"),
+
 ]
