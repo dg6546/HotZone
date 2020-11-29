@@ -7,16 +7,33 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    <h3 id="form-title">Case</h3>
+    <h3 id="form-title">Choose one of the location:</h3>
 {#    {{visit_form.as_p}}#}
-
+    <table style="width:100%; text-align:center">
+    <tr>
+        <th> </th>
+        <th>Location name</th>
+        <th>Address</th>
+        <th>x coordinate</th>
+        <th>y coordinate</th>
+    </tr>
+    {% for result in record_list %}
+        <tr>
+            <td><input type="radio"  name="idx" value="{{ forloop.counter0 }}" ></td>
+            <td>{{ result.location_name}}</td>
+            <td>{{ result.address }}</td>
+            <td>{{ result.x_coord }}</td>
+            <td>{{ result.y_coord }}</td>
+        </tr>
+    {% endfor %}
+    </table>
     {% for field in visit_form %}
         {{ field.label_tag }} {{ field }}
-        {% if field.name == 'location' %}
-                <a href="new_location">
-                   <p>Create new location </p>
-                </a>
-        {% endif %}
+{#        {% if field.name == 'location' %}#}
+{#                <a href="new_location">#}
+{#                   <p>Create new location </p>#}
+{#                </a>#}
+{#        {% endif %}#}
         <br>
     {% endfor %}
     <button class="button" type="submit">Create</button>
