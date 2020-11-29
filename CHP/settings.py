@@ -135,29 +135,6 @@ EMAIL_HOST_USER = 'cheungkayuk123@gmail.com'
 EMAIL_HOST_PASSWORD = 'comp3297'
 
 
-<<<<<<< HEAD
-# #for localhost
-SECRET_KEY = 'n)=jbb@c0o83q0dsvt1qg2@cxwc*7$3@hz$_7%+7&=$sv)@aw_'
-#
-
-#
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hotzone',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-    }
-}
-
-#for deployment
-#SECRET_KEY = env('HOTZONE_SECRET_KEY')
-#DEBUG = False
-#DATABASES = {
-#    'default': env.dj_db_url('DATABASE_URL')
-#}
 
 #for localhost
 SECRET_KEY = 'n)=jbb@c0o83q0dsvt1qg2@cxwc*7$3@hz$_7%+7&=$sv)@aw_'
