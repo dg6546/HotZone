@@ -40,11 +40,11 @@ def cluster(vector_4d, distance, time, minimum_cluster):
     unique_labels = set(db)
     total_clusters = len(unique_labels) if -1 not in unique_labels else len(unique_labels) -1
 
-    print("Total clusters:", total_clusters)
+  #  print("Total clusters:", total_clusters)
 
     total_noise = list(db).count(-1)
 
-    print("Total un-clustered:", total_noise)
+   # print("Total un-clustered:", total_noise)
     for k in unique_labels:
         result=[]
         if (k != -1):
@@ -55,17 +55,18 @@ def cluster(vector_4d, distance, time, minimum_cluster):
                     if (labels_k[i]):
                         cluster_k.append(vector_4d[i])
             except:
-                print("failed")
-            print("Cluster", k, " size:", len(cluster_k))
+            #    print("failed")
+                pass
+            #print("Cluster", k, " size:", len(cluster_k))
             result.append(k)
             result.append(len(cluster_k))
             cases=[]
             for pt in cluster_k:
                 case=[pt[0], pt[1], pt[2], pt[3]]
-                print("(x:{}, y:{}, day:{}, caseNo:{})".format(pt[0], pt[1], pt[2], pt[3]))
+            #    print("(x:{}, y:{}, day:{}, caseNo:{})".format(pt[0], pt[1], pt[2], pt[3]))
                 cases.append(case)
             result.append(cases)
 
-            print()
+            #print()
             results.append(result)
     return results
