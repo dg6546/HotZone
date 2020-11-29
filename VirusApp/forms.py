@@ -36,7 +36,7 @@ class New_virus_form(ModelForm):
 class New_visit_record_form(ModelForm):
     class Meta:
         model = Visit_record
-        exclude = ('case',)
+        exclude = ('case', 'location',)
 
 
 

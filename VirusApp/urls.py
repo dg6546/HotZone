@@ -14,7 +14,7 @@ urlpatterns = [
     path('search/case', search_case_form_view, name='search_case'),
     #path('patient/<int:patient_id>/new_case', New_case_form_view, name='new_case'),
     path('case_detail/<int:case_id>/new_visit', new_visit_form_view, name='new_visit'),
-    path('case_detail/<int:case_id>/new_location', search_location_form_view, name='new_location'),
+    path('case_detail/<int:case_id>/search_location', search_location_form_view, name='new_location'),
     path('case_detail/<int:case_id>/result', search_location_form_view, name='search_location_result'),
-    path('case_detail/<int:case_id>/add_visit', New_location_form_view, name='add_location'),
+    #path('case_detail/<int:case_id>/add_visit', New_location_form_view, name='add_location'),
 ]

@@ -1,3 +1,4 @@
+from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 import urllib.request, json
 from .forms import *
@@ -110,69 +111,126 @@ def New_case_form_view(request, patient_id):
 
 def new_visit_form_view(request, case_id):
     if request.method == 'POST':
-        visit_form = New_visit_record_form(request.POST)
-        if visit_form.is_valid():
-            visit_record = visit_form.save(commit=False)
-            case = get_object_or_404(Case, pk=case_id)
-            visit_record.case = case
-            visit_record.save()
-            messages.info(request, 'Visit record has been created!')
-            return redirect('/case_detail/' + str(case_id))
-    else:
-        visit_form = New_visit_record_form()
-        return render(request, 'new_visit.html', {'visit_form': visit_form})
-
-
-@login_required(login_url='login_page')
-def New_location_form_view(request, case_id):
-
-    if request.method == 'POST':
         idx = request.POST.get("idx", "")
-        logger.error(idx)
-        if idx is not '':
+        if idx != '':
             index = int(idx)
-            location_dict = request.session['location_dict'][index]
-            input_location_name = location_dict['location_name']
-            input_address = location_dict['address']
-            input_x_coord = location_dict['x_coord']
-            input_y_coord = location_dict['y_coord']
-            existing_record = Location.objects.filter(location_name=input_location_name, address=input_address)
-            if not existing_record:
-                Location.objects.create(location_name=input_location_name, address=input_address,
-                                        x_coord=input_x_coord, y_coord=input_y_coord)
-                messages.info(request, 'Success! Location has been created!')
-                return redirect('/case_detail/'+str(case_id)+'/new_visit')
+            selected_location = request.session['record_list'][index]
+            location_data = {
+                'location_name': selected_location['location_name'],
+                'address': selected_location['address'],
+                'x_coord': selected_location['x_coord'],
+                'y_coord': selected_location['y_coord']
+            }
+            location_form = New_location_form(location_data)
+
+            visit_data = {
+                'date_from': request.POST.get("date_from", ""),
+                'date_to': request.POST.get("date_to", ""),
+                'visit_category': request.POST.get("visit_category", "")
+            }
+            visit_form = New_visit_record_form(visit_data)
+
+            if location_form.is_valid() and visit_form.is_valid():
+                existing_location = Location.objects.filter(location_name=location_data['location_name'],
+                                                            address=location_data['address'],
+                                                            x_coord=location_data['x_coord'],
+                                                            y_coord=location_data['y_coord'])
+                if existing_location:
+                    location = existing_location
+                else:
+                    location = location_form.save()
+                visit_record = visit_form.save(commit=False)
+                case = get_object_or_404(Case, pk=case_id)
+                visit_record.case = case
+                visit_record.location = location
+                visit_record.save()
+                request.session['record_list'].clear()
+                messages.info(request, 'Visit record has been created!')
+                return redirect('/case_detail/' + str(case_id))
             else:
-                messages.info(request, 'Error! Location already existed!')
-                return redirect('/case_detail/'+str(case_id)+'/new_visit')
+                messages.info(request, 'Please ensure data you have entered are correct!')
+                return redirect('/case_detail/' + str(case_id) + '/new_visit')
         else:
             messages.info(request, 'Error! Please select at least one location!')
             return redirect('/case_detail/' + str(case_id) + '/new_visit')
     else:
-        messages.info(request, 'Error! Please do not access this page manually!')
-        return redirect('/')
+        record_list = request.session['record_list']
+        visit_form = New_visit_record_form()
+        return render(request, 'new_visit.html', {'visit_form': visit_form, 'record_list': record_list})
+
+
+# @login_required(login_url='login_page')
+# def New_location_form_view(request, case_id):
+#
+#     if request.method == 'POST':
+#         idx = request.POST.get("idx", "")
+#         logger.error(idx)
+#         if idx is not '':
+#             index = int(idx)
+#             location_dict = request.session['location_dict'][index]
+#             input_location_name = location_dict['location_name']
+#             input_address = location_dict['address']
+#             input_x_coord = location_dict['x_coord']
+#             input_y_coord = location_dict['y_coord']
+#             existing_record = Location.objects.filter(location_name=input_location_name, address=input_address)
+#             if not existing_record:
+#                 Location.objects.create(location_name=input_location_name, address=input_address,
+#                                         x_coord=input_x_coord, y_coord=input_y_coord)
+#                 messages.info(request, 'Success! Location has been created!')
+#                 return redirect('/case_detail/'+str(case_id)+'/new_visit')
+#             else:
+#                 messages.info(request, 'Error! Location already existed!')
+#                 return redirect('/case_detail/'+str(case_id)+'/new_visit')
+#         else:
+#             messages.info(request, 'Error! Please select at least one location!')
+#             return redirect('/case_detail/' + str(case_id) + '/new_visit')
+#     else:
+#         messages.info(request, 'Error! Please do not access this page manually!')
+#         return redirect('/')
 
 @login_required(login_url='login_page')
 def search_location_form_view(request, case_id):
     if request.method == 'POST':
         form = Location_search_Form(request.POST)
         if form.is_valid():
+
             location_data = form.cleaned_data.get('location_name')
+            logger.error(location_data)
             location_data_edited = location_data.replace(' ', "%20")
             url = 'https://geodata.gov.hk/gs/api/v1.0.0/locationSearch?q='
             try:
+                record_query = Location.objects.filter(location_name=location_data)
+                record_list = []
+                #record_list.append({'location_name': 'location existing in database:'})
+                for record in record_query:
+                    record_list.append({'location_name': record.location_name,
+                                        'address': record.address,
+                                        'x_coord': record.x_coord,
+                                        'y_coord': record.y_coord})
+                logger.error(record_list)
+                #record_list.append({'location_name': 'location found in API query:'})
                 request1 = urllib.request.urlopen(url+location_data_edited)
                 json_result = json.load(request1)
                 for result in json_result:
-                    result['location_name'] = result.pop('nameEN')
-                    result['address'] = result.pop('addressEN')
+                    result['location_name'] = result.pop('nameEN').rstrip()
+                    result['address'] = result.pop('addressEN').rstrip()
                     result['x_coord'] = result.pop('x')
                     result['y_coord'] = result.pop('y')
                     result.pop('addressZH')
                     result.pop('nameZH')
-                request.session['location_dict'] = json_result
-                #logger.error(json_result)
-                return render(request, 'new_location_test.html', {'json_result': json_result})
+                    if result not in record_list:
+                        logger.error(result)
+                        record_list.append(result)
+                if not record_list:
+                    form = Location_search_Form()
+                    messages.info(request, 'No result!')
+                    return render(request, 'location.html', {'form': form})
+                else:
+                    request.session['record_list'] = record_list
+
+                    #logger.error(json_result)
+                    #return render(request, 'new_location_test.html', {'record_list': record_list, 'visit_form': visit_form})
+                    return redirect('/case_detail/' + str(case_id) + '/new_visit')
             except urllib.error.HTTPError:
                 form = Location_search_Form()
                 messages.info(request, 'No result!')
