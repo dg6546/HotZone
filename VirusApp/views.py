@@ -136,7 +136,7 @@ def new_visit_form_view(request, case_id):
             visit_form = New_visit_record_form(visit_data)
 
             if location_form.is_valid() and visit_form.is_valid():
-                existing_location = Location.objects.filter(location_name=location_data['location_name'].rstrip(),
+                existing_location = Location.objects.get(location_name=location_data['location_name'].rstrip(),
                                                             address=location_data['address'].rstrip(),
                                                             x_coord=location_data['x_coord'],
                                                             y_coord=location_data['y_coord'])
