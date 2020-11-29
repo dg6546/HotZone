@@ -205,7 +205,7 @@ def search_location_form_view(request, case_id):
                     request.session['record_list'] = record_list
 
                     #logger.error(json_result)
-                    #return render(request, 'new_location_test.html', {'record_list': record_list, 'visit_form': visit_form})
+
                     return redirect('/case_detail/' + str(case_id) + '/new_visit')
             except urllib.error.HTTPError:
                 form = Location_search_Form()
