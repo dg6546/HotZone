@@ -8,8 +8,8 @@
     {% if results %}
     <table style="width:100%; text-align:center">
         <tr>
-            <th>Cluster Number</th>
-            <th>Cluster Size</th>
+            <th style="width: 1%">Cluster Number</th>
+            <th style="width: 1%">Cluster Size</th>
             <th>Cases</th>
         </tr>
         {% for result in results %}
@@ -18,8 +18,8 @@
                 <td> {{ result.1 }} </td>
                 <td> 
                     {% for case in result.2 %}
-                        Location : {{ case.4 }} | X : {{ case.0 }} | Y : {{ case.1}} | Date of Visit : {{ case.2 }} | 
-                        <a href="/case_detail/{{ case.3 }}/"> Case Number : {{ case.3}} </a><br>
+                        Location : {{ case.4 }} | X : {{ case.0 }} | Y : {{ case.1}} | Date : {{ case.2 }} | 
+                        <a href="/case_detail/{{ case.3 }}/"> Case ID : {{ case.3}} </a><br>
                     {% endfor %}
                 </td>
             </tr>
