@@ -121,8 +121,8 @@ def new_visit_form_view(request, case_id):
             index = int(idx)
             selected_location = request.session['record_list'][index]
             location_data = {
-                'location_name': selected_location['location_name'],
-                'address': selected_location['address'],
+                'location_name': selected_location['location_name'].rstrip(),
+                'address': selected_location['address'].rstrip(),
                 'x_coord': selected_location['x_coord'],
                 'y_coord': selected_location['y_coord']
             }
@@ -136,12 +136,15 @@ def new_visit_form_view(request, case_id):
             visit_form = New_visit_record_form(visit_data)
 
             if location_form.is_valid() and visit_form.is_valid():
-                existing_location = Location.objects.get(location_name=location_data['location_name'].rstrip(),
-                                                            address=location_data['address'].rstrip(),
-                                                            x_coord=location_data['x_coord'],
-                                                            y_coord=location_data['y_coord'])
+
+                existing_location = Location.objects.filter(
+                    location_name=location_data['location_name'],
+                    address=location_data['address'],
+                    x_coord=location_data['x_coord'],
+                    y_coord=location_data['y_coord']
+                )
                 if existing_location:
-                    location = existing_location
+                    location = existing_location.get(location_name=location_data['location_name'])
                 else:
                     location = location_form.save()
                 visit_record = visit_form.save(commit=False)
